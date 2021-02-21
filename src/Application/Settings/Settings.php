@@ -27,14 +27,15 @@ namespace App\Application\Settings;
 
 class Settings implements SettingsInterface
 {
-    /**
-     * @var array
-     */
+    /** @var array $settings The application settings. */
     private $settings;
 
     /**
      * Settings constructor.
-     * @param array $settings
+     *
+     * @param array $settings The application settings.
+     *
+     * @return void Returns nothing.
      */
     public function __construct(array $settings)
     {
@@ -42,8 +43,9 @@ class Settings implements SettingsInterface
     }
 
     /**
-     * @param string $key
-     * @return mixed
+     * @param string $key The setting key to access.
+     *
+     * @return mixed Gets the settings value.
      */
     public function get(string $key = '')
     {
