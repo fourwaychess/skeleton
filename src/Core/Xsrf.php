@@ -49,7 +49,7 @@ class Xsrf implements XsrfInterface
      */
     public function validXsrf(array $request): bool
     {
-        return !isset($request[$this->name]) || !hash_equals($request[$this->name], $session->get('xsrf'));
+        return !isset($request[$this->name]) || !hash_equals($request[$this->name], $session->get('xsrf', ''));
     }
 
     /**
