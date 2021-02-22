@@ -23,11 +23,11 @@ class Database implements DatabaseInterface
     /**
      * Construct a new database handler.
      *
-     * @param \FourWayChess\Core\ConnectionInterface $connection The database connection.
+     * @param \PDO $connection The database connection.
      *
      * @return void Returns nothing.
      */
-    public function __construct(public ConnectionInterface $connection)
+    public function __construct(public PDO $connection)
     {
         //
     }
