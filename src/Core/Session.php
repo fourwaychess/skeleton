@@ -46,7 +46,7 @@ class Session implements SessionInterface
         }
         $session = session_start();
         $fingerprint = hash_hmac('sha256', sprintf('%s|%s', $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_USER_AGENT']), $this->code);
-        if (is_null($this->get('fingerprint', null))) {
+        if (is_null($this->get('fingerprint'))) {
             $this->put('fingerprint', $fingerprint);
         } elseif (hash_equals($this->get('fingerprint', ''), $fingerprint)) {
             return $session;
