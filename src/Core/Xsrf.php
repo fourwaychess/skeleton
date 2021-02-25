@@ -53,13 +53,15 @@ class Xsrf implements XsrfInterface
     }
 
     /**
-     * Generate and save the xsrf token
+     * Generate and save the xsrf token.
+     *
+     * @param bool $override Should we override the currently set token.
      *
      * @return string Returns the saved token.
      */
-    public function preXsrfLoad(): string
+    public function preXsrfLoad(bool $override = true): string
     {
-        $token = $this->generate();
+        $token = $override ? $this->generate() : $this->session->get('xsrf', $this->generate());
         $this->session->put('xsrf', $token);
         return $token;
     }
