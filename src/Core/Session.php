@@ -16,7 +16,7 @@ namespace FourWayChess\Core;
 /**
  * A secure by default session handler.
  */
-class Session implements SessionInterface
+class Session
 {
     /**
      * Construct a new session handler.
