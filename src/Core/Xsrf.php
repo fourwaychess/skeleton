@@ -32,24 +32,25 @@ class Xsrf implements XsrfInterface
     }
 
     /**
-     * Generate a token and generate an html input field for it.
+     * Get the current valid xsrf token and return it.
      *
-     * @return string Return the html input field for the xsrf token.
+     * @return string Returns the valid xsrf token.
      */
-    public function output(): string
+    public function getToken(): string
     {
-        $token = $this->preXsrfLoad();
-        return "<input type=\"hidden\" name=\"{$this->name}\" value=\"$token\" />";
+        return $this->session->get('xsrf', $this->loadXsrf());
     }
 
     /**
      * Verify that the xsrf token is valid.
      *
+     * @param string $token The xsrf token to validate.
+     *
      * @return bool Returns true if the xsrf token is valid and returns false if not.
      */
-    public function validXsrf(array $request): bool
+    public function validXsrf(string $token): bool
     {
-        return !isset($request[$this->name]) || !hash_equals($request[$this->name], $this->session->get('xsrf', ''));
+        return isset($request[$this->name]) && hash_equals($request[$this->name], $this->session->get('xsrf', ''));
     }
 
     /**
@@ -59,7 +60,7 @@ class Xsrf implements XsrfInterface
      *
      * @return string Returns the saved token.
      */
-    public function preXsrfLoad(bool $override = true): string
+    public function xsrfLoad(bool $override = true): string
     {
         $token = $override ? $this->generate() : $this->session->get('xsrf', $this->generate());
         $this->session->put('xsrf', $token);
